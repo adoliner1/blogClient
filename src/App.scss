@@ -1,0 +1,118 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.pageContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.header {
+  width: 100%;
+  height: 50px;
+  padding-top: 5px;
+  padding-bottom: 60px;
+  margin-bottom: 20px;
+  border-bottom: solid;
+  line-height: 50px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 45px;
+  font-family: 'Roboto', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+}
+
+.mainContentContainer {
+    display: flex;
+    width: 100%;
+    align-items: stretch;
+}
+
+.sideBarWrapper {
+  max-height: 100%;
+  min-height: 100vh;
+  z-index: 0;
+}
+
+.post {
+  margin: auto;
+  width: 80%;
+}
+
+.post p {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+}
+
+.toggleSidebarCollapseButton {
+  max-width: 0px;
+  max-height: 0px;
+  cursor: pointer;
+  top: 0;
+  z-index: 1;  
+}
+
+.nextArrow {
+  position: absolute;
+  width: 100px;
+  height: 300px;
+  top: 50vh;
+  right: 2%;
+}
+
+.cursorPointerOnHover {
+  cursor: pointer;
+}
+
+.previousArrow {
+  position: absolute;
+  width: 100px;
+  height: 300px;
+  top: 50vh;
+  left: 2%;
+}
+
+.postAndArrowsContainer {
+  position: relative;
+  max-width: 100%;
+}
+
+.hide {
+  visibility: hidden;
+}
+
+
+.metadata p {
+  display: block;
+  margin: 0;
+}
+
+.closeSidebarButton {
+  cursor: pointer;
+}
+
+.closeSidebarButton:hover{
+  color: white;
+}
+
+.published-date {
+  padding-bottom: 10px;
+}
+
+.author {
+  padding-top: 5px;
+}
+
+$sidebar-collapsed-width: 0px;
+$sidebar-width: 200px;
+$sidebar-bg-color: #FFFFFF;
+$sidebar-color: #000000;
+
+@import '~react-pro-sidebar/dist/scss/styles.scss';
