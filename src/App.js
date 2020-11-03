@@ -20,7 +20,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-      fetch("http://adblog.cloudno.de/blog/1")
+      fetch("http://adblog.cloudno.de/blog/1", {mode: 'cors'})
           .then(response => response.json())
           .then((result) => {this.setState({isLoaded: true, postContent: result.content, postMetadata: result.metadata, hideSidebarCollapseButton: false})})
   }
@@ -32,7 +32,7 @@ class App extends React.Component {
 
   fetchAndDisplayNewPost(postNumber) {
     var request = "http://adblog.cloudno.de/blog/" + postNumber
-    fetch(request)
+    fetch(request, {mode: 'cors'})
           .then(response => response.json())
           .then((result) => {this.setState({postContent: result.content, postMetadata: result.metadata})})
   }
