@@ -92,7 +92,7 @@ class App extends React.Component {
 
         <div className="postAndArrowsContainer">
           <div className={sideBarCollapseButtonClasses} onClick={this.openSidebar}>
-            Posts
+            All Posts
           </div>
 
           <ChangePostArrow arrowType = "previousArrow"
