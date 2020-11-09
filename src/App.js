@@ -3,6 +3,7 @@ import blackArrowRight from './blackRightArrow.png'
 import blackArrowLeft from './blackLeftArrow.png'
 import greyArrowRight from './greyRightArrow.png'
 import greyArrowLeft from './greyLeftArrow.png'
+import backgroundTiles from './double-bubble-outline.png'
 import ReactMarkdown from 'react-markdown'
 import {Container, Row, Col} from "react-bootstrap";
 import './App.scss';
@@ -81,7 +82,7 @@ class App extends React.Component {
     <div className = "pageContainer">
       <div className = "header">
         <div className = "blogHeader">
-          ADB
+          The Bloginer
         </div>
       </div>
       <div className ="mainContentContainer">
