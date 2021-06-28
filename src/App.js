@@ -12,7 +12,7 @@ import { ProSidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
 class App extends React.Component {
   constructor(props) {
       super(props)
-      this.state = {postContent: "", postMetadata: "", error: null, currentPost: 1, totalPosts: 3, sideBarCollapsed: true}
+      this.state = {postContent: "", postTitles: [], postMetadata: "", error: null, currentPost: 1, totalPosts: 3, sideBarCollapsed: true}
       this.handleNextArrowClick = this.handleNextArrowClick.bind(this)
       this.handlePreviousArrowClick = this.handlePreviousArrowClick.bind(this)
       this.closeSidebar = this.closeSidebar.bind(this)
