@@ -21,14 +21,19 @@ class App extends React.Component {
   }
 
   componentDidMount() {
+      fetch("https://adblog.cloudno.de/blog/postTitles", {mode: 'cors'})
+        .then(response => response.json())
+        .then((result) => { {this.setState({postTitles: result})}})
+
       fetch("https://adblog.cloudno.de/blog/1", {mode: 'cors'})
           .then(response => response.json())
           .then((result) => {this.setState({isLoaded: true, postContent: result.content, postMetadata: result.metadata, hideSidebarCollapseButton: false})})
+
   }
 
   componentDidUpdate(prevProps, prevState, snapshot){
         if(this.state.currentPost !== prevState.currentPost)
-          this.fetchAndDisplayNewPost(this.state.currentPost)    
+          this.fetchAndDisplayNewPost(this.state.currentPost)  
   }
 
   fetchAndDisplayNewPost(postNumber) {
@@ -65,7 +70,6 @@ class App extends React.Component {
     this.setState((state, props) => ({hideSidebarCollapseButton: true}))
   }
 
-
   handleSidebarPostClick(post)
   {
     if (post <= this.state.totalPosts && post >= 1)
@@ -87,7 +91,7 @@ class App extends React.Component {
       </div>
       <div className ="mainContentContainer">
         <div className="sideBarWrapper">
-          <SideBar sideBarCollapsed = {this.state.sideBarCollapsed} totalPosts = {this.state.totalPosts} handleClick = {this.handleSidebarPostClick} closeSidebar={this.closeSidebar}/>
+          <SideBar sideBarCollapsed = {this.state.sideBarCollapsed} postTitles = {this.state.postTitles} handleClick = {this.handleSidebarPostClick} closeSidebar={this.closeSidebar}/>
         </div>
 
         <div className="postAndArrowsContainer">
@@ -123,11 +127,10 @@ class SideBar extends React.Component {
   }
 
   render() {
-
       var posts = []
 
-      for (let i = 1; i <= this.props.totalPosts; i++)
-        posts.push(<MenuItem onClick = {() => this.props.handleClick(i)}> Post {i} </MenuItem>)
+      for (let i = 0; i <= this.props.postTitles.length; i++)
+        posts.push(<MenuItem onClick = {() => this.props.handleClick(i)}> this.props.postTitles[i] </MenuItem>)
 
       return (
         <ProSidebar collapsed={this.props.sideBarCollapsed}>
