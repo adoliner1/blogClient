@@ -21,9 +21,11 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-      fetch("https://adblog.cloudno.de/blog/postTitles", {mode: 'cors'})
+      fetch("https://adblog.cloudno.de/postTitles", {mode: 'cors'})
         .then(response => response.json())
-        .then((result) => { {this.setState({postTitles: result})}})
+        .then((result) => {
+                            this.setState({postTitles: result})
+                          })
 
       fetch("https://adblog.cloudno.de/blog/1", {mode: 'cors'})
           .then(response => response.json())
@@ -128,9 +130,8 @@ class SideBar extends React.Component {
 
   render() {
       var posts = []
-
       for (let i = 0; i <= this.props.postTitles.length; i++)
-        posts.push(<MenuItem onClick = {() => this.props.handleClick(i)}> this.props.postTitles[i] </MenuItem>)
+        posts.push(<MenuItem onClick = {() => this.props.handleClick(i+1)}> {this.props.postTitles[i]} </MenuItem>)
 
       return (
         <ProSidebar collapsed={this.props.sideBarCollapsed}>
