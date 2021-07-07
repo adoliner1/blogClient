@@ -23,9 +23,7 @@ class App extends React.Component {
   componentDidMount() {
       fetch("https://adblog.cloudno.de/postTitles", {mode: 'cors'})
         .then(response => response.json())
-        .then((result) => {
-                            this.setState({postTitles: result})
-                          })
+        .then((result) => {this.setState({postTitles: result})})
 
       fetch("https://adblog.cloudno.de/blog/1", {mode: 'cors'})
           .then(response => response.json())
