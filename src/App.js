@@ -134,17 +134,6 @@ class App extends React.Component {
   }
 }
 
-class Comments extends React.Component {
-  constructor(props) {
-      super(props)
-    }
-
-  render() {
-      var commentsList = this.props.comments.map((comment) => <li>{comment}</li> );
-      return ( <ul className="comments"> {commentsList} </ul> )
-  }
-}
-
 class SideBar extends React.Component {
   constructor(props) {
       super(props)
@@ -224,6 +213,13 @@ class PostMetadata extends React.Component {
         </div>
       );
    }
+}
+
+class Comments extends React.Component {
+  render() {
+      var commentsList = this.props.comments.map((comment) => <li>{comment}</li> );
+      return ( <ul className="comments"> {commentsList} </ul> )
+  }
 }
 
 export default App;
