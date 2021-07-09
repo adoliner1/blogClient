@@ -12,11 +12,13 @@ import { ProSidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
 class App extends React.Component {
   constructor(props) {
       super(props)
-      this.state = {postContent: "", postTitles: [], postMetadata: "", error: null, currentPost: 1, totalPosts: 3, sideBarCollapsed: true}
+      this.state = {postContent: "", postTitles: [], comments: [], postMetadata: "", error: null, currentPost: 1, totalPosts: 3, sideBarCollapsed: true, hideSidebarCollapseButton: false}
       this.handleNextArrowClick = this.handleNextArrowClick.bind(this)
       this.handlePreviousArrowClick = this.handlePreviousArrowClick.bind(this)
       this.closeSidebar = this.closeSidebar.bind(this)
       this.openSidebar = this.openSidebar.bind(this)
+      this.fetchPost = this.fetchPost.bind(this)
+      this.fetchComments = this.fetchComments.bind(this)
       this.handleSidebarPostClick = this.handleSidebarPostClick.bind(this)
   }
 
@@ -25,22 +27,30 @@ class App extends React.Component {
         .then(response => response.json())
         .then((result) => {this.setState({postTitles: result})})
 
-      fetch("https://adblog.cloudno.de/blog/1", {mode: 'cors'})
-          .then(response => response.json())
-          .then((result) => {this.setState({isLoaded: true, postContent: result.content, postMetadata: result.metadata, hideSidebarCollapseButton: false})})
-
+      this.fetchPost(1)
+      this.fetchComments(1)
   }
 
   componentDidUpdate(prevProps, prevState, snapshot){
         if(this.state.currentPost !== prevState.currentPost)
-          this.fetchAndDisplayNewPost(this.state.currentPost)  
+        {
+          this.fetchPost(this.state.currentPost)
+          this.fetchComments(this.state.currentPost)  
+        }
   }
 
-  fetchAndDisplayNewPost(postNumber) {
+  fetchPost(postNumber) {
     var request = "https://adblog.cloudno.de/blog/" + postNumber
     fetch(request, {mode: 'cors'})
           .then(response => response.json())
           .then((result) => {this.setState({postContent: result.content, postMetadata: result.metadata})})
+  }
+
+  fetchComments(postNumber) {
+    var request = "https://adblog.cloudno.de/comments/" + postNumber 
+    fetch(request, {mode: 'cors'})
+          .then(response => response.json())
+          .then((result) => {this.setState({comments: result.content})})
   }
 
   handleNextArrowClick() {
@@ -106,7 +116,7 @@ class App extends React.Component {
                            totalPosts = {this.state.totalPosts} 
                            handleClick= {this.handlePreviousArrowClick} />
 
-          <Post postContent = {this.state.postContent} metaData = {this.state.postMetadata}/>
+          <Post postContent = {this.state.postContent} metaData = {this.state.postMetadata} />
 
           <ChangePostArrow arrowType = "nextArrow"
                            highlightedImage = {blackArrowRight}
@@ -114,10 +124,24 @@ class App extends React.Component {
                            currentPost = {this.state.currentPost}
                            totalPosts = {this.state.totalPosts}
                            handleClick= {this.handleNextArrowClick} />
+
+          <Comments comments = {this.state.comments} />
+
         </div>
       </div>
     </div>
     )
+  }
+}
+
+class Comments extends React.Component {
+  constructor(props) {
+      super(props)
+    }
+
+  render() {
+      var commentsList = this.props.comments.map((comment) => <li>{comment}</li> );
+      return ( <ul className="comments"> {commentsList} </ul> )
   }
 }
 
