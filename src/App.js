@@ -50,7 +50,14 @@ class App extends React.Component {
     var request = "https://adblog.cloudno.de/comments/" + postNumber 
     fetch(request, {mode: 'cors'})
           .then(response => response.json())
-          .then((result) => {this.setState({comments: result.content})})
+          .then((result) => 
+          {
+            console.log(result)
+            if (result != undefined)
+              this.setState({comments: result})
+            else
+              this.setState({comments: []})
+          })
   }
 
   handleNextArrowClick() {
@@ -217,7 +224,7 @@ class PostMetadata extends React.Component {
 
 class Comments extends React.Component {
   render() {
-      var commentsList = this.props.comments.map((comment) => <li>{comment}</li> );
+      var commentsList = this.props.comments.map((comment) => <li>{comment.comment}</li> );
       return ( <ul className="comments"> {commentsList} </ul> )
   }
 }
