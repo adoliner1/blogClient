@@ -132,7 +132,9 @@ class App extends React.Component {
                            totalPosts = {this.state.totalPosts}
                            handleClick= {this.handleNextArrowClick} />
 
-          <Comments comments = {this.state.comments} />
+
+          <SubmitComment postNumber = {this.state.currentPost}/>
+          <Comments comments = {this.state.comments} /> 
 
         </div>
       </div>
@@ -162,6 +164,44 @@ class SideBar extends React.Component {
         </ProSidebar> )
   }
 }
+
+class SubmitComment extends React.Component {
+  constructor(props) {
+      super(props)
+      this.state = {value: ''};
+      this.handleChange = this.handleChange.bind(this);
+      this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleChange(event) 
+  {    
+    this.setState({value: event.target.value});  
+  }
+
+  handleSubmit(event) {
+      event.preventDefault();
+      const requestOptions = {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ postNumber: this.props.postNumber, comment: this.state.value, date: "7-13-21"})
+      };
+
+      fetch('https://adblog.cloudno.de/newComment', requestOptions)
+  }
+
+  render() {
+      return (       
+        <form className= "submitComment" onSubmit={this.handleSubmit}>
+          <label>
+            Submit Comment:
+            <input type="text" value={this.state.value} onChange={this.handleChange} />
+          </label>
+          <input type="submit" value="Submit" />
+        </form>
+        )
+  }
+}
+
 
 class ChangePostArrow extends React.Component {
 
@@ -224,8 +264,13 @@ class PostMetadata extends React.Component {
 
 class Comments extends React.Component {
   render() {
-      var commentsList = this.props.comments.map((comment) => <li>{comment.comment}</li> );
-      return ( <ul className="comments"> {commentsList} </ul> )
+      var commentsList = this.props.comments.map((comment) => <li>{comment.date + ": " + comment.comment}</li> );
+      return (
+        <div className="comments">
+          <div> Comments: </div> 
+          <ul> {commentsList} </ul> 
+        </div>
+      )
   }
 }
 
