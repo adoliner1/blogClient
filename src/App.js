@@ -182,11 +182,11 @@ class SubmitComment extends React.Component {
       event.preventDefault();
       const requestOptions = {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'},
           body: JSON.stringify({ postNumber: this.props.postNumber, comment: this.state.value, date: "7-13-21"})
       };
 
-      fetch('https://adblog.cloudno.de/newComment', requestOptions)
+      fetch('http://localhost:9000/newComment', requestOptions)
   }
 
   render() {
