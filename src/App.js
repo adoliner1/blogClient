@@ -186,7 +186,7 @@ class SubmitComment extends React.Component {
           body: JSON.stringify({ postNumber: this.props.postNumber, comment: this.state.value, date: "7-13-21"})
       };
 
-      fetch('http://localhost:9000/newComment', requestOptions)
+      fetch('https://adblog.cloudno.de/newComment', requestOptions)
   }
 
   render() {
